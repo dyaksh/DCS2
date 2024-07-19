@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "src": "/assets/img/clients/7.png",
+    "alt": "7"
+  },
+  {
+    "id": 2,
+    "src": "/assets/img/clients/arcon.png",
+    "alt": "arcon"
+  },
+  {
+    "id": 3,
+    "src": "/assets/img/clients/aws.png",
+    "alt": "aws"
+  },
+  {
+    "id": 4,
+    "src": "/assets/img/clients/Blackberry-Cylance.png",
+    "alt": "Blackberry-Cylance"
+  },
+  {
+    "id": 5,
+    "src": "/assets/img/clients/copal1.png",
+    "alt": "copal1"
+  },
+  {
+    "id": 6,
+    "src": "/assets/img/clients/desksight.png",
+    "alt": "desksight"
+  },
+  {
+    "id": 7,
+    "src": "/assets/img/clients/duo.png",
+    "alt": "duo"
+  },
+  {
+    "id": 8,
+    "src": "/assets/img/clients/silverpeak.png",
+    "alt": "silverpeak"
+  },
+  {
+    "id": 9,
+    "src": "/assets/img/clients/zscaler.png",
+    "alt": "zscaler"
+  }
+]
