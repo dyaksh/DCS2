@@ -1,0 +1,10 @@
+paresh.png,Paresh Makwana,Chief Executive Officer,https://linkedin.com/in/paresh007,,,
+jp.png,J P Makwana,Chief Financial Officer,,,,
+poonam.png,Poonam Chacha, HR & Finance Controller,,,,
+Ritesh Kadam.jpeg,Ritesh Kadam,Senior Engineer,,,,
+Vandan Ramani.jpeg,Vandan Ramani,Senior Engineer,,,,
+mehul Khatate.jpeg,Mehul Khatate, Engineer,,,,
+dada.jpg,Dada Marsale,Engineer,,,,
+Roshan Yadav.jpeg,Roshan Yadav,Engineer,,,,
+Yaksh Darji.jpg,Yaksh Darji, Internship Co-ordinator & Senior Developer,https://www.linkedin.com/in/yaksh-darji/,,,
+
