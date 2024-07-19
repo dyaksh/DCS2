@@ -1,4 +1,4 @@
 MUMBAI.png|India|+91 98202 93767|contactus@dcyber.in|Laxmi Vishnu Chs, D6/617 Vishwa CHS, RDP 8, Charkop Sector 6 Kandivali West, Mumbai, Maharashtra 400067
 canada.png|Canada|+1 306 580 9900|hr@dcyber.in|4725 Keller Avenue E Regina, SK S4V 3R6,  Canada
 africa.png|South Africa|+27 826982562|contactus@dcyber.in|44 Melrose Arch Boulevard,Melrose, South Africa
-dubai.png|Dubai|+971 XX 1234567|contactus@dcyber.in|Dubai, United Arab Emirates
+DUBAI.png|Dubai|+971 XX 1234567|contactus@dcyber.in|Dubai, United Arab Emirates
