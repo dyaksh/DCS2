@@ -221,38 +221,40 @@ document.addEventListener("DOMContentLoaded", function() {
  * Function for the logo load for client and partner section
  */
 document.addEventListener('DOMContentLoaded', () => {
-  // Load client logos
-  const clientLogosContainer = document.getElementById('client-logos');
-  if (clientLogosContainer) {
-    fetch('listImages.php?type=clients')
-      .then(response => response.json())
-      .then(images => {
-        images.forEach(image => {
-          const img = document.createElement('img');
-          img.src = image.path;
-          img.alt = image.name;
-          clientLogosContainer.appendChild(img);
+  // Function to load logos
+  const loadLogos = (type, containerId) => {
+    const container = document.getElementById(containerId);
+    if (container) {
+      fetch(`listImages.php?type=${type}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Network response was not ok (${response.statusText})`);
+          }
+          return response.json().catch(() => {
+            throw new Error('Invalid JSON');
+          });
+        })
+        .then(images => {
+          images.forEach(image => {
+            const img = document.createElement('img');
+            img.src = image.path;
+            img.alt = image.name;
+            container.appendChild(img);
+          });
+        })
+        .catch(error => {
+          console.error(`Error fetching ${type} images:`, error);
         });
-      })
-      .catch(error => console.error('Error fetching client images:', error));
-  }
+    }
+  };
+
+  // Load client logos
+  loadLogos('clients', 'client-logos');
 
   // Load partner logos
-  const partnerLogosContainer = document.getElementById('partner-logos');
-  if (partnerLogosContainer) {
-    fetch('listImages.php?type=partners')
-      .then(response => response.json())
-      .then(images => {
-        images.forEach(image => {
-          const img = document.createElement('img');
-          img.src = image.path;
-          img.alt = image.name;
-          partnerLogosContainer.appendChild(img);
-        });
-      })
-      .catch(error => console.error('Error fetching partner images:', error));
-  }
+  loadLogos('partners', 'partner-logos');
 });
+
 
 /**
  * Marquee text
