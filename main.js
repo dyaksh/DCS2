@@ -222,10 +222,10 @@ document.addEventListener("DOMContentLoaded", function() {
  */
 document.addEventListener('DOMContentLoaded', () => {
   // Load client logos
-  const clientLogosContainer = document.getElementById('client-logos');
   fetch('listImages.php?type=clients')
     .then(response => response.json())
     .then(images => {
+      const clientLogosContainer = document.getElementById('client-logos');
       images.forEach(image => {
         const img = document.createElement('img');
         img.src = image.path;
@@ -238,10 +238,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
   // Load partner logos
-  const partnerLogosContainer = document.getElementById('partner-logos');
   fetch('listImages.php?type=partners')
     .then(response => response.json())
     .then(images => {
+      const partnerLogosContainer = document.getElementById('partner-logos');
       images.forEach(image => {
         const img = document.createElement('img');
         img.src = image.path;

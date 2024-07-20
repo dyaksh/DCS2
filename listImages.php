@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: application/json');
 
 $imageDirectory = 'assets/img/'; // Base directory for images
 
