@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: text/html');
 
 // Define directory paths for images
 $imageDirectoryClients = 'assets/img/clients';
@@ -7,7 +8,7 @@ $imageDirectoryPartners = 'assets/img/partners';
 // Initialize an empty string to store image HTML
 $imageHTML = '';
 
-$type = isset($_GET['type']) ? $_GET['type'] : 'clients';
+$type = isset($_GET['type'])? $_GET['type'] : 'clients';
 
 // Set the image directory based on the 'type' parameter
 if ($type === 'clients') {
@@ -22,9 +23,9 @@ if ($type === 'clients') {
 // Check if the directory exists
 if (is_dir($imageDirectory)) {
     // Fetch images from the specified directory
-    foreach (glob($imageDirectory . '/*.{jpg,jpeg,png,gif,svg,webp,ico}', GLOB_BRACE) as $image) {
+    foreach (glob($imageDirectory. '/*.{jpg,jpeg,png,gif,svg,webp,ico}', GLOB_BRACE) as $image) {
         $imageName = basename($image);
-        $imageHTML .= "<img src='$image' alt='$imageName'>";
+        $imageHTML.= "<img src='$image' alt='$imageName'>";
     }
     // Output image HTML
     echo $imageHTML;
