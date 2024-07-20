@@ -226,21 +226,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById(containerId);
     if (container) {
       fetch(`listImages.php?type=${type}`)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(`Network response was not ok (${response.statusText})`);
-          }
-          return response.json().catch(() => {
-            throw new Error('Invalid JSON');
-          });
-        })
-        .then(images => {
-          images.forEach(image => {
-            const img = document.createElement('img');
-            img.src = image.path;
-            img.alt = image.name;
-            container.appendChild(img);
-          });
+        .then(response => response.text())
+        .then(html => {
+          container.innerHTML = html;
         })
         .catch(error => {
           console.error(`Error fetching ${type} images:`, error);
@@ -254,7 +242,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Load partner logos
   loadLogos('partners', 'partner-logos');
 });
-
 
 /**
  * Marquee text

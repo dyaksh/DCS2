@@ -1,12 +1,12 @@
 <?php
-header('Content-Type: application/json');
 
 // Define directory paths for images
 $imageDirectoryClients = 'assets/img/clients';
 $imageDirectoryPartners = 'assets/img/partners';
 
-// Initialize an empty array to store image data
-$images = [];
+// Initialize an empty string to store image HTML
+$imageHTML = '';
+
 $type = isset($_GET['type']) ? $_GET['type'] : 'clients';
 
 // Set the image directory based on the 'type' parameter
@@ -23,13 +23,14 @@ if ($type === 'clients') {
 if (is_dir($imageDirectory)) {
     // Fetch images from the specified directory
     foreach (glob($imageDirectory . '/*.{jpg,jpeg,png,gif,svg,webp,ico}', GLOB_BRACE) as $image) {
-        $images[] = ['path' => $image, 'name' => basename($image)];
+        $imageName = basename($image);
+        $imageHTML .= "<img src='$image' alt='$imageName'>";
     }
-    // Send JSON response with image data
-    echo json_encode($images);
+    // Output image HTML
+    echo $imageHTML;
 } else {
-    // Send JSON response with error message if directory doesn't exist
+    // Output error message if directory doesn't exist
     http_response_code(404);
-    echo json_encode(['error' => 'Image directory not found']);
+    echo '<p>Image directory not found</p>';
 }
 ?>
