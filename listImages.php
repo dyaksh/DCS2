@@ -1,6 +1,5 @@
 <?php
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *'); // Allow cross-origin requests
 
 $imageDirectoryClients = 'assets/img/clients'; // Directory path for client images
 $imageDirectoryPartners = 'assets/img/partners'; // Directory path for partner images
@@ -22,5 +21,10 @@ foreach (glob($imageDirectory. '/*.{jpg,jpeg,png,gif,svg,webp,ico}', GLOB_BRACE)
     $images[] = ['path' => $image, 'name' => basename($image)]; // Adjust the structure as per your needs
 }
 
-echo json_encode($images);
+if (empty($images)) {
+    http_response_code(404);
+    echo json_encode(['error' => 'No images found']);
+} else {
+    echo json_encode($images);
+}
 ?>
