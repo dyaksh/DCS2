@@ -1,9 +1,12 @@
 <?php
+header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *'); // Allow cross-origin requests
+
 $imageDirectoryClients = 'assets/img/clients'; // Directory path for client images
 $imageDirectoryPartners = 'assets/img/partners'; // Directory path for partner images
 
 $images = [];
-$type = isset($_GET['type']) ? $_GET['type'] : 'clients';
+$type = isset($_GET['type'])? $_GET['type'] : 'clients';
 
 if ($type === 'clients') {
     $imageDirectory = $imageDirectoryClients;
@@ -15,10 +18,9 @@ if ($type === 'clients') {
 }
 
 // Fetch images from the specified directory
-foreach (glob($imageDirectory . '/*.{jpg,jpeg,png,gif,svg,webp,ico}', GLOB_BRACE) as $image) {
+foreach (glob($imageDirectory. '/*.{jpg,jpeg,png,gif,svg,webp,ico}', GLOB_BRACE) as $image) {
     $images[] = ['path' => $image, 'name' => basename($image)]; // Adjust the structure as per your needs
 }
 
-header('Content-Type: application/json');
 echo json_encode($images);
 ?>
