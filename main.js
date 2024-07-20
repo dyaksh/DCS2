@@ -221,27 +221,35 @@ document.addEventListener("DOMContentLoaded", function() {
  * Function for the logo load for client and partner section
  */
 document.addEventListener('DOMContentLoaded', () => {
-  // Function to load logos
-  const loadLogos = (type, containerId) => {
-    const container = document.getElementById(containerId);
-    if (container) {
-      fetch(`listImages.php?type=${type}`)
-        .then(response => response.text())
-        .then(html => {
-          container.innerHTML = html;
-        })
-        .catch(error => {
-          console.error(`Error fetching ${type} images:`, error);
-        });
-    }
-  };
-
   // Load client logos
-  loadLogos('clients', 'client-logos');
+  const clientLogosContainer = document.getElementById('client-logos');
+  fetch('listImages.php?type=clients')
+    .then(response => response.json())
+    .then(images => {
+      images.forEach(image => {
+        const img = document.createElement('img');
+        img.src = image.path;
+        img.alt = image.name;
+        clientLogosContainer.appendChild(img);
+      });
+    })
+    .catch(error => console.error('Error fetching client images:', error));
 
   // Load partner logos
-  loadLogos('partners', 'partner-logos');
+  const partnerLogosContainer = document.getElementById('partner-logos');
+  fetch('listImages.php?type=partners')
+    .then(response => response.json())
+    .then(images => {
+      images.forEach(image => {
+        const img = document.createElement('img');
+        img.src = image.path;
+        img.alt = image.name;
+        partnerLogosContainer.appendChild(img);
+      });
+    })
+    .catch(error => console.error('Error fetching partner images:', error));
 });
+
 
 /**
  * Marquee text
