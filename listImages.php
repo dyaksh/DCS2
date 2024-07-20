@@ -1,30 +1,37 @@
 <?php
 header('Content-Type: application/json');
 
-$imageDirectoryClients = 'assets/img/clients'; // Directory path for client images
-$imageDirectoryPartners = 'assets/img/partners'; // Directory path for partner images
+$imageDirectory = 'assets/img/'; // Base directory for images
 
-$images = [];
-$type = isset($_GET['type'])? $_GET['type'] : 'clients';
-
-if ($type === 'clients') {
-    $imageDirectory = $imageDirectoryClients;
-} elseif ($type === 'partners') {
-    $imageDirectory = $imageDirectoryPartners;
+if (isset($_GET['type'])) {
+  $type = $_GET['type'];
+  switch ($type) {
+    case 'clients':
+      $imageDirectory .= 'clients/';
+      break;
+    case 'partners':
+      $imageDirectory .= 'partners/';
+      break;
+    default:
+      http_response_code(400);
+      echo json_encode(['error' => 'Invalid type']);
+      exit;
+  }
 } else {
-    // Handle unknown type or fallback
-    $imageDirectory = $imageDirectoryClients; // Default to clients if type is not specified or recognized
+  http_response_code(400);
+  echo json_encode(['error' => 'Type parameter is required']);
+  exit;
 }
 
-// Fetch images from the specified directory
-foreach (glob($imageDirectory. '/*.{jpg,jpeg,png,gif,svg,webp,ico}', GLOB_BRACE) as $image) {
-    $images[] = ['path' => $image, 'name' => basename($image)]; // Adjust the structure as per your needs
+$images = [];
+foreach (glob($imageDirectory . '*.{jpg,jpeg,png,gif,svg,webp,ico}', GLOB_BRACE) as $image) {
+  $images[] = ['path' => $image, 'name' => basename($image)];
 }
 
 if (empty($images)) {
-    http_response_code(404);
-    echo json_encode(['error' => 'No images found']);
+  http_response_code(404);
+  echo json_encode(['error' => 'No images found']);
 } else {
-    echo json_encode($images);
+  echo json_encode($images);
 }
 ?>

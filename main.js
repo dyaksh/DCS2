@@ -224,12 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Load client logos
   const clientLogosContainer = document.getElementById('client-logos');
   fetch('listImages.php?type=clients')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json();
-    })
+    .then(response => response.json())
     .then(images => {
       images.forEach(image => {
         const img = document.createElement('img');
@@ -245,12 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Load partner logos
   const partnerLogosContainer = document.getElementById('partner-logos');
   fetch('listImages.php?type=partners')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json();
-    })
+    .then(response => response.json())
     .then(images => {
       images.forEach(image => {
         const img = document.createElement('img');
