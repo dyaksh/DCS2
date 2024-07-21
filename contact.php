@@ -3,7 +3,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get form data
     $name = htmlspecialchars(trim($_POST["name"]));
     $email = htmlspecialchars(trim($_POST["email"]));
-    $phone = htmlspecialchars(trim($_POST["phone"]));
+    $subject = htmlspecialchars(trim($_POST["subject"]));
     $message = htmlspecialchars(trim($_POST["message"]));
 
     // Validate email address
@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $subject = "Enquiry from Contact Form";
     $messageBody = "Name: $name\n";
     $messageBody .= "Email: $email\n";
-    $messageBody .= "Phone Number: $phone\n";
+    $messageBody .= "Subject: $subject\n";
     $messageBody .= "Message:\n$message";
 
     // Replace with your own email address
