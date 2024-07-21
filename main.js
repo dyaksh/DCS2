@@ -448,23 +448,33 @@ async function loadBlogPosts() {
     });
 
     // Initialize Swiper
-    const swiper = new Swiper('.blog-slider', {
-      slidesPerView: 1,
-      spaceBetween: 30,
-      loop: true,
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-      },
-    });
+   // Initialize Swiper
+const swiper = new Swiper('.blog-slider', {
+  slidesPerView: 3, // Show 3 cards at once
+  spaceBetween: 20, // Space between cards
+  loop: true,
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+  },
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+  autoplay: {
+    delay: 5000,
+    disableOnInteraction: false,
+  },
+  breakpoints: {
+    768: {
+      slidesPerView: 2, // Show 2 cards at once for tablets
+    },
+    1024: {
+      slidesPerView: 3, // Show 3 cards at once for desktop
+    },
+  },
+});
+
   } catch (error) {
     console.error('Error loading blog posts:', error);
   }

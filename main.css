@@ -1487,7 +1487,7 @@ section,
   color: #000000; /* Hover color for the email */
 }
 
-
+/* Blog */
 .blog-slider {
   padding: 20px;
 }
@@ -1499,7 +1499,9 @@ section,
   overflow: hidden;
   transition: all 0.3s ease;
   text-align: center;
-  padding: 20px;
+  padding: 15px;
+  width: 200px; /* Set a fixed width for smaller cards */
+  height: 300px; /* Adjust height as needed */
 }
 
 .blog-card:hover {
@@ -1509,16 +1511,15 @@ section,
 
 .blog-image {
   width: 100%;
-  height: 150px;
+  height: 120px; /* Adjust height to fit the card */
   object-fit: cover;
   border-radius: 8px;
-  margin-bottom: 15px;
 }
 
 .blog-title {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin: 10px 0;
 }
 
 .blog-summary {
@@ -1528,53 +1529,23 @@ section,
 }
 
 .blog-read-more {
-  color: #f60000;
-  font-size: 1rem;
-  text-decoration: none;
+  background-color: #f60000;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
 }
 
 .blog-read-more:hover {
-  text-decoration: underline;
+  background-color: #c30000;
 }
 
-.swiper-button-next,
-.swiper-button-prev {
-  color: #f60000; /* Adjust to match your theme */
-}
-
-.dialog-overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  justify-content: center;
-  align-items: center;
-}
-
-.dialog-content {
-  background: #fff;
-  border-radius: 10px;
-  padding: 20px;
-  max-width: 600px;
-  width: 100%;
-  text-align: center;
-  position: relative;
-}
-
-.dialog-close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-.dialog-image {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  margin-bottom: 15px;
+@media (max-width: 1024px) {
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+  }
 }
