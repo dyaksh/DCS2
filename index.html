@@ -541,52 +541,42 @@
       
 
   </main>
-    <!-- Career Form Modal -->
-    <div id="career-modal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Career Form</h2>
-        <form id="career-form" action="career.php" method="post" enctype="multipart/form-data">
-          <div class="input-group">
-            <label for="name">Full Name:</label>
-            <input type="text" id="name" name="name" required>
-          </div>
-          <div class="input-group">
-            <label for="email">Email Address:</label>
-            <input type="email" id="email" name="email" required>
-          </div>
-          <div class="input-group">
-            <label for="mobile">Mobile Number:</label>
-            <input type="tel" id="mobile" name="mobile" required>
-          </div>
-          <div class="input-group">
-            <label for="resume">Upload Resume:</label>
-            <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
-          </div>
-          <div class="input-group">
-            <label for="college">College Pursuing/Completed:</label>
-            <input type="text" id="college" name="college" required>
-          </div>
-          <div class="input-group">
-            <label for="qualification">Qualification:</label>
-            <input type="text" id="qualification" name="qualification" required>
-          </div>
-          <div class="input-group">
-            <label for="domain">Domain for Internship/Career:</label>
-            <input type="text" id="domain" name="domain" required>
-          </div>
-          <div class="input-group">
-            <label for="type">Type:</label>
-            <select id="type" name="type" required>
-              <option value="internship">Internship</option>
-              <option value="career">Career</option>
-            </select>
-          </div>
-          <button type="submit">Submit</button>
-        </form>
+  <!-- Blog Section -->
+<section id="blogs" class="blogs section">
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Our Blogs</h2>
+    <p>Explore the latest insights and updates from our team.</p>
+  </div><!-- End Section Title -->
+
+  <div class="container">
+    <div class="blog-slider swiper" data-aos="fade-up" data-aos-delay="100">
+      <div class="swiper-wrapper" id="blog-posts">
+        <!-- Blog posts will be dynamically inserted here -->
       </div>
+      <!-- Add Pagination -->
+      <div class="swiper-pagination"></div>
+      <!-- Add Navigation -->
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
     </div>
-  
+  </div>
+</section>
+<!-- End Blog Section -->
+
+<!-- Blog Details Dialog -->
+<div id="blog-details-dialog" class="dialog-overlay">
+  <div class="dialog-content">
+    <span class="dialog-close">&times;</span>
+    <img id="dialog-image" src="" alt="" class="dialog-image">
+    <h3 id="dialog-title"></h3>
+    <p id="dialog-author"></p>
+    <p id="dialog-timestamp"></p>
+    <div id="dialog-content"></div>
+  </div>
+</div>
+<!-- End Blog Details Dialog -->
+
     <!-- Footer Section -->
     <footer id="footer" class="footer position-relative">
       <div class="container footer-top">

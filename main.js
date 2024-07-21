@@ -393,28 +393,95 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /**
- * Career modal
+ * blog
  */
-document.addEventListener('DOMContentLoaded', function() {
-  const modal = document.getElementById('career-modal');
-  const openModalButton = document.getElementById('open-career-form');
-  const closeModalButton = document.querySelector('.close');
+// Function to load blog posts from text file
+async function loadBlogPosts() {
+  const response = await fetch('path/to/blog.txt');
+  const data = await response.text();
+  const lines = data.split('\n');
 
-  if (openModalButton && modal && closeModalButton) {
-    openModalButton.addEventListener('click', function() {
-      modal.style.display = 'block';
-    });
+  const swiperWrapper = document.querySelector('#blog-posts');
 
-    closeModalButton.addEventListener('click', function() {
-      modal.style.display = 'none';
-    });
+  lines.forEach(line => {
+    const [image, title, author, timestamp, summary, content] = line.split('|');
 
-    window.addEventListener('click', function(event) {
-      if (event.target == modal) {
-        modal.style.display = 'none';
+    if (title && summary) {
+      const slide = document.createElement('div');
+      slide.className = 'swiper-slide';
+
+      const blogCard = document.createElement('div');
+      blogCard.className = 'blog-card';
+
+      if (image && image.trim()) {
+        const img = document.createElement('img');
+        img.src = image;
+        img.alt = title;
+        img.className = 'blog-image';
+        blogCard.appendChild(img);
       }
-    });
-  } else {
-    console.error('Error: Modal elements not found');
-  }
+
+      const blogTitle = document.createElement('div');
+      blogTitle.className = 'blog-title';
+      blogTitle.textContent = title;
+
+      const blogSummary = document.createElement('div');
+      blogSummary.className = 'blog-summary';
+      blogSummary.textContent = summary;
+
+      const readMoreLink = document.createElement('a');
+      readMoreLink.href = '#';
+      readMoreLink.className = 'blog-read-more';
+      readMoreLink.textContent = 'Read More';
+      readMoreLink.onclick = () => showBlogDetails(image, title, author, timestamp, content);
+
+      blogCard.appendChild(blogTitle);
+      blogCard.appendChild(blogSummary);
+      blogCard.appendChild(readMoreLink);
+
+      slide.appendChild(blogCard);
+      swiperWrapper.appendChild(slide);
+    }
+  });
+
+  // Initialize Swiper
+  const swiper = new Swiper('.blog-slider', {
+    slidesPerView: 1,
+    spaceBetween: 30,
+    loop: true,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
+    },
+  });
+}
+
+// Function to show blog details in dialog
+function showBlogDetails(image, title, author, timestamp, content) {
+  document.getElementById('dialog-image').src = image;
+  document.getElementById('dialog-title').textContent = title;
+  document.getElementById('dialog-author').textContent = `Author: ${author}`;
+  document.getElementById('dialog-timestamp').textContent = `Published on: ${timestamp}`;
+  document.getElementById('dialog-content').innerHTML = content;
+
+  document.getElementById('blog-details-dialog').style.display = 'flex';
+}
+
+// Function to close the dialog
+document.querySelector('.dialog-close').onclick = () => {
+  document.getElementById('blog-details-dialog').style.display = 'none';
+};
+
+// Load the blog posts when the document is ready
+document.addEventListener('DOMContentLoaded', () => {
+  loadBlogPosts();
 });
+
