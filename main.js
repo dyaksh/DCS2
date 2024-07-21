@@ -506,3 +506,33 @@ document.querySelector('.dialog-close').addEventListener('click', closeDialog);
 document.addEventListener('DOMContentLoaded', () => {
   loadBlogPosts();
 });
+
+
+
+/* contact */
+document.getElementById('contact-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+  
+  let name = document.querySelector('input[name="name"]').value;
+  let email = document.querySelector('input[name="email"]').value;
+  let subject = document.querySelector('input[name="subject"]').value;
+  let message = document.querySelector('textarea[name="message"]').value;
+  
+  let mailtoLink = `mailto:yakshdarji2@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+
+  // Create a temporary link and trigger a click event
+  let tempLink = document.createElement('a');
+  tempLink.href = mailtoLink;
+  tempLink.style.display = 'none';
+  document.body.appendChild(tempLink);
+  tempLink.click();
+  document.body.removeChild(tempLink);
+
+  // Show success message
+  document.querySelector('.sent-message').classList.add('d-block');
+  document.querySelector('.loading').classList.remove('d-block');
+  document.querySelector('.error-message').classList.remove('d-block');
+
+  // Reset form
+  document.getElementById('contact-form').reset();
+});
