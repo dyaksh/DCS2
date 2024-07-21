@@ -1,7 +1,7 @@
 <?php
 
 class PHP_Email_Form {
-  public $to = 'yakshdarji2@gmai.com';
+  public $to = 'contactus@dcyber.in';
   public $from_name = '';
   public $from_email = '';
   public $subject = '';

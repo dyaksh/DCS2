@@ -246,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch(error => console.error('Error loading client logos:', error));
   
   // Load and display partner logos
-  fetch('/partners.txt')
+  fetch('partners.txt')
     .then(response => response.text())
     .then(data => {
       const partners = data.trim().split('\n');
