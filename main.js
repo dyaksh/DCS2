@@ -219,62 +219,41 @@ document.addEventListener("DOMContentLoaded", function() {
 
 /**
  * Function for the logo load for client and partner section
- 
-
-document.addEventListener('DOMContentLoaded', () => {
-  const loadImages = (type, containerId) => {
-    fetch(`listImages.php?type=${type}`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`Network response was not ok: ${response.statusText}`);
-        }
-        return response.text();
-      })
-      .then(html => {
-        const container = document.getElementById(containerId);
-        if (container) {
-          container.innerHTML = html;
-        } else {
-          console.error(`Container with id '${containerId}' not found`);
-        }
-      })
-      .catch(error => {
-        console.error(`Error fetching ${type} images:`, error);
-      });
-  };
-
-  loadImages('clients', 'client-logos');
-  loadImages('partners', 'partner-logos');
+**/
+document.addEventListener('DOMContentLoaded', function() {
+  loadLogos('clients.txt', 'client-logos');
+  loadLogos('partners.txt', 'partner-logos');
 });
 
-
-*/
-document.addEventListener('DOMContentLoaded', () => {
-  const loadImages = (type, containerId) => {
-    fetch(`/api/listImages?type=${type}`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`Network response was not ok: ${response.statusText}`);
-        }
-        return response.text();
+function loadLogos(file, containerId) {
+  fetch(file)
+      .then(response => response.text())
+      .then(data => {
+          const lines = data.split('\n');
+          const container = document.getElementById(containerId);
+          lines.forEach(line => {
+              if (line.trim()) {
+                  const [img, url] = line.split(',').map(item => item.trim());
+                  const logoElement = createLogoElement(img, url);
+                  container.appendChild(logoElement);
+              }
+          });
       })
-      .then(html => {
-        const container = document.getElementById(containerId);
-        if (container) {
-          container.innerHTML = html;
-        } else {
-          console.error(`Container with id '${containerId}' not found`);
-        }
-      })
-      .catch(error => {
-        console.error(`Error fetching ${type} images:`, error);
-      });
-  };
+      .catch(error => console.error('Error loading logos:', error));
+}
 
-  loadImages('clients', 'client-logos');
-  loadImages('partners', 'partner-logos');
-});
+function createLogoElement(img, url) {
+  const anchor = document.createElement('a');
+  anchor.href = url;
+  anchor.target = '_blank';
 
+  const image = document.createElement('img');
+  image.src = `assets/img/${img}`;
+  image.alt = 'Client/Partner Logo';
+
+  anchor.appendChild(image);
+  return anchor;
+}
 
 /**
  * Marquee text
