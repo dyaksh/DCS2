@@ -220,6 +220,7 @@ document.addEventListener("DOMContentLoaded", function() {
 /**
  * Function for the logo load for client and partner section
  */
+
 document.addEventListener('DOMContentLoaded', () => {
   const loadImages = (type, containerId) => {
     fetch(`listImages.php?type=${type}`)
@@ -245,6 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadImages('clients', 'client-logos');
   loadImages('partners', 'partner-logos');
 });
+
 
 
 
