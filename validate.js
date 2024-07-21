@@ -8,7 +8,7 @@
       event.preventDefault();
 
       let thisForm = this;
-      let action = thisForm.getAttribute('action');
+      let action = thisForm.POSTAttribute('action');
 
       if (!action) {
         displayError(thisForm, 'The form action property is not set!');
@@ -27,7 +27,7 @@
 
   function php_email_form_submit(thisForm, action, formData) {
     fetch(action, {
-      method: 'GET',
+      method: 'POST',
       body: formData,
       headers: { 'X-Requested-With': 'XMLHttpRequest' }
     })
