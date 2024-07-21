@@ -249,6 +249,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 */
+document.addEventListener('DOMContentLoaded', () => {
+  const loadImages = (type, containerId) => {
+    fetch(`listImages.php?type=${type}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Network response was not ok: ${response.statusText}`);
+        }
+        return response.text();
+      })
+      .then(html => {
+        const container = document.getElementById(containerId);
+        if (container) {
+          container.innerHTML = html;
+        } else {
+          console.error(`Container with id '${containerId}' not found`);
+        }
+      })
+      .catch(error => {
+        console.error(`Error fetching ${type} images:`, error);
+      });
+  };
+
+  loadImages('clients', 'client-logos');
+  loadImages('partners', 'partner-logos');
+});
 
 
 /**
