@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $messageBody .= "Message:\n$message";
 
     // Replace with your own email address
-    $to = "yakshdarji2@gmail.com";
+    $to = "info@dcyber.in";
 
     // Send the email
     $headers = "From: Dcyber TechLab <noreply@example.com>";
