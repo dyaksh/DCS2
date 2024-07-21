@@ -450,8 +450,8 @@ async function loadBlogPosts() {
     // Initialize Swiper
    // Initialize Swiper
 const swiper = new Swiper('.blog-slider', {
-  slidesPerView: 3, // Show 3 cards at once
-  spaceBetween: 20, // Space between cards
+  slidesPerView: 4, // Show 3 cards at once
+  spaceBetween: 15, // Space between cards
   loop: true,
   pagination: {
     el: '.swiper-pagination',
