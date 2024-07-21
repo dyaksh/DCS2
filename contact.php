@@ -1,10 +1,10 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
     // Collect and sanitize form data
-    $name = htmlspecialchars(trim($_POST['name']));
-    $email = htmlspecialchars(trim($_POST['email']));
-    $subject = htmlspecialchars(trim($_POST['subject']));
-    $message = htmlspecialchars(trim($_POST['message']));
+    $name = htmlspecialchars(trim($_GET['name']));
+    $email = htmlspecialchars(trim($_GET['email']));
+    $subject = htmlspecialchars(trim($_GET['subject']));
+    $message = htmlspecialchars(trim($_GET['message']));
 
     // Recipient email
     $to = 'yakshdarji2@gmail.com';
@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo 'There was a problem sending the email.';
     }
 } else {
-    // Not a POST request
+    // Not a GET request
     echo 'Invalid request.';
 }
 ?>
