@@ -20,10 +20,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $messageBody .= "Message:\n$message";
 
     // Replace with your own email address
-    $to = "yaksh.darji313@svkmmumbai.onmicrosoft.com";
+    $to = "contactus@dcyber.in";
 
     // Send the email
-    $headers = "From: Dcyber TechLab <noreply@example.com>";
+    $headers = "From: Dcyber TechLab ";
 
     if (mail($to, $subject, $messageBody, $headers)) {
         echo '<script>alert("Thank you for your submission!"); window.location = "index.html";</script>';
