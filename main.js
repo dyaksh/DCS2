@@ -219,7 +219,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 /**
  * Function for the logo load for client and partner section
- */
+ 
 
 document.addEventListener('DOMContentLoaded', () => {
   const loadImages = (type, containerId) => {
@@ -248,7 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
+*/
 
 
 /**
