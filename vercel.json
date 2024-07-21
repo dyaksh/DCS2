@@ -1,0 +1,16 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "listImages.php",
+        "use": "@vercel/php"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/api/listImages",
+        "dest": "/listImages.php"
+      }
+    ]
+  }
+  

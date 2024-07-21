@@ -251,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
 */
 document.addEventListener('DOMContentLoaded', () => {
   const loadImages = (type, containerId) => {
-    fetch(`listImages.php?type=${type}`)
+    fetch(`/api/listImages?type=${type}`)
       .then(response => {
         if (!response.ok) {
           throw new Error(`Network response was not ok: ${response.statusText}`);
