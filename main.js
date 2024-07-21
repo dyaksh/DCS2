@@ -221,38 +221,37 @@ document.addEventListener("DOMContentLoaded", function() {
  * Function for the logo load for client and partner section
  */
 document.addEventListener('DOMContentLoaded', () => {
-  // Load client logos
-  fetch('listImages.php?type=clients')
-    .then(response => response.json())
-    .then(images => {
-      const clientLogosContainer = document.getElementById('client-logos');
-      images.forEach(image => {
-        const img = document.createElement('img');
-        img.src = image.path;
-        img.alt = image.name;
-        clientLogosContainer.appendChild(img);
+  const loadImages = (type, containerId) => {
+    fetch(`listImages.php?type=${type}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(images => {
+        const container = document.getElementById(containerId);
+        if (container) {
+          container.innerHTML = ''; // Clear existing images
+          images.forEach(image => {
+            const img = document.createElement('img');
+            img.src = image.path;
+            img.alt = image.name;
+            container.appendChild(img);
+          });
+        } else {
+          console.error(`Container with id '${containerId}' not found`);
+        }
+      })
+      .catch(error => {
+        console.error(`Error fetching ${type} images:`, error);
       });
-    })
-    .catch(error => {
-      console.error('Error fetching client images:', error);
-    });
+  };
 
-  // Load partner logos
-  fetch('listImages.php?type=partners')
-    .then(response => response.json())
-    .then(images => {
-      const partnerLogosContainer = document.getElementById('partner-logos');
-      images.forEach(image => {
-        const img = document.createElement('img');
-        img.src = image.path;
-        img.alt = image.name;
-        partnerLogosContainer.appendChild(img);
-      });
-    })
-    .catch(error => {
-      console.error('Error fetching partner images:', error);
-    });
+  loadImages('clients', 'client-logos');
+  loadImages('partners', 'partner-logos');
 });
+
 
 /**
  * Marquee text

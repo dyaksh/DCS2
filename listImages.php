@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json');
 
-$imageDirectory = 'assets/img/'; // Base directory for images
+$imageDirectory = 'assets/img/';
 
 if (isset($_GET['type'])) {
   $type = $_GET['type'];
