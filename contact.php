@@ -1,46 +1,32 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Your reCAPTCHA secret key
-    $recaptchaSecret = 'YOUR_RECAPTCHA_SECRET_KEY';
-    $recaptchaResponse = $_POST['recaptcha-response'];
+    // Collect and sanitize form data
+    $name = htmlspecialchars(trim($_POST['name']));
+    $email = htmlspecialchars(trim($_POST['email']));
+    $subject = htmlspecialchars(trim($_POST['subject']));
+    $message = htmlspecialchars(trim($_POST['message']));
 
-    // Verify reCAPTCHA
-    $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$recaptchaSecret&response=$recaptchaResponse");
-    $responseKeys = json_decode($response, true);
+    // Recipient email
+    $to = 'yakshdarji2@gmail.com';
+    $subject = "Contact Form Submission: $subject";
 
-    if ($responseKeys["success"]) {
-        // Form fields
-        $name = htmlspecialchars($_POST['name']);
-        $email = htmlspecialchars($_POST['email']);
-        $subject = htmlspecialchars($_POST['subject']);
-        $message = htmlspecialchars($_POST['message']);
+    // Email content
+    $email_content = "Name: $name\n";
+    $email_content .= "Email: $email\n";
+    $email_content .= "Subject: $subject\n";
+    $email_content .= "Message:\n$message\n";
 
-        // Recipient email address
-        $to = 'yakshdarji2@gmail.com';
-        $headers = "From: $email" . "\r\n" .
-                   "Reply-To: $email" . "\r\n" .
-                   "Content-Type: text/html; charset=UTF-8";
+    // Email headers
+    $headers = "From: $email";
 
-        // Email subject and body
-        $emailSubject = "Contact Form Submission: $subject";
-        $emailBody = "<html><body>";
-        $emailBody .= "<h2>Contact Form Submission</h2>";
-        $emailBody .= "<p><strong>Name:</strong> $name</p>";
-        $emailBody .= "<p><strong>Email:</strong> $email</p>";
-        $emailBody .= "<p><strong>Subject:</strong> $subject</p>";
-        $emailBody .= "<p><strong>Message:</strong><br>$message</p>";
-        $emailBody .= "</body></html>";
-
-        // Send email
-        if (mail($to, $emailSubject, $emailBody, $headers)) {
-            echo 'OK';
-        } else {
-            echo 'Email sending failed.';
-        }
+    // Send the email
+    if (mail($to, $subject, $email_content, $headers)) {
+        echo 'OK';
     } else {
-        echo 'reCAPTCHA verification failed.';
+        echo 'There was a problem sending the email.';
     }
 } else {
-    echo 'Invalid request method.';
+    // Not a POST request
+    echo 'Invalid request.';
 }
 ?>
