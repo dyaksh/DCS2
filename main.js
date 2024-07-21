@@ -227,20 +227,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!response.ok) {
           throw new Error(`Network response was not ok: ${response.statusText}`);
         }
-        return response.json().catch(error => {
-          throw new Error('Invalid JSON response');
-        });
+        return response.text();
       })
-      .then(images => {
+      .then(html => {
         const container = document.getElementById(containerId);
         if (container) {
-          container.innerHTML = ''; // Clear existing images
-          images.forEach(image => {
-            const img = document.createElement('img');
-            img.src = image.path;
-            img.alt = image.name;
-            container.appendChild(img);
-          });
+          container.innerHTML = html;
         } else {
           console.error(`Container with id '${containerId}' not found`);
         }
