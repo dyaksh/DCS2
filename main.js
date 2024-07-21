@@ -512,12 +512,17 @@ document.addEventListener('DOMContentLoaded', () => {
 /* contact */
 document.getElementById('contact-form').addEventListener('submit', function(event) {
   event.preventDefault();
-  
+
   let name = document.querySelector('input[name="name"]').value;
   let email = document.querySelector('input[name="email"]').value;
   let subject = document.querySelector('input[name="subject"]').value;
   let message = document.querySelector('textarea[name="message"]').value;
-  
+
+  if (!name || !email || !subject || !message) {
+    displayError('Please fill out all fields.');
+    return;
+  }
+
   let mailtoLink = `mailto:yakshdarji2@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
 
   // Create a temporary link and trigger a click event
@@ -536,3 +541,9 @@ document.getElementById('contact-form').addEventListener('submit', function(even
   // Reset form
   document.getElementById('contact-form').reset();
 });
+
+function displayError(error) {
+  document.querySelector('.loading').classList.remove('d-block');
+  document.querySelector('.error-message').innerHTML = error;
+  document.querySelector('.error-message').classList.add('d-block');
+}
