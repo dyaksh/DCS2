@@ -397,76 +397,82 @@ document.addEventListener("DOMContentLoaded", () => {
  */
 // Function to load blog posts from text file
 async function loadBlogPosts() {
-  const response = await fetch('blog.txt');
-  const data = await response.text();
-  const lines = data.split('\n');
-
-  const swiperWrapper = document.querySelector('#blog-posts');
-
-  lines.forEach(line => {
-    const [image, title, author, timestamp, summary, content] = line.split('|');
-
-    if (title && summary) {
-      const slide = document.createElement('div');
-      slide.className = 'swiper-slide';
-
-      const blogCard = document.createElement('div');
-      blogCard.className = 'blog-card';
-
-      if (image && image.trim()) {
-        const img = document.createElement('img');
-        img.src = image;
-        img.alt = title;
-        img.className = 'blog-image';
-        blogCard.appendChild(img);
-      }
-
-      const blogTitle = document.createElement('div');
-      blogTitle.className = 'blog-title';
-      blogTitle.textContent = title;
-
-      const blogSummary = document.createElement('div');
-      blogSummary.className = 'blog-summary';
-      blogSummary.textContent = summary;
-
-      const readMoreLink = document.createElement('a');
-      readMoreLink.href = '#';
-      readMoreLink.className = 'blog-read-more';
-      readMoreLink.textContent = 'Read More';
-      readMoreLink.onclick = () => showBlogDetails(image, title, author, timestamp, content);
-
-      blogCard.appendChild(blogTitle);
-      blogCard.appendChild(blogSummary);
-      blogCard.appendChild(readMoreLink);
-
-      slide.appendChild(blogCard);
-      swiperWrapper.appendChild(slide);
+  try {
+    const response = await fetch('blog.txt');
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
     }
-  });
+    const data = await response.text();
+    const lines = data.trim().split('\n');
 
-  // Initialize Swiper
-  const swiper = new Swiper('.blog-slider', {
-    slidesPerView: 1,
-    spaceBetween: 30,
-    loop: true,
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-    autoplay: {
-      delay: 5000,
-      disableOnInteraction: false,
-    },
-  });
+    const swiperWrapper = document.querySelector('#blog-posts');
+
+    lines.forEach(line => {
+      const [image, title, author, timestamp, summary, content] = line.split('|');
+
+      if (title && summary) {
+        const slide = document.createElement('div');
+        slide.className = 'swiper-slide';
+
+        const blogCard = document.createElement('div');
+        blogCard.className = 'blog-card';
+
+        if (image && image.trim()) {
+          const img = document.createElement('img');
+          img.src = `assets/img/blog/${image}`;
+          img.alt = title;
+          img.className = 'blog-image';
+          blogCard.appendChild(img);
+        }
+
+        const blogTitle = document.createElement('div');
+        blogTitle.className = 'blog-title';
+        blogTitle.textContent = title;
+
+        const blogSummary = document.createElement('div');
+        blogSummary.className = 'blog-summary';
+        blogSummary.textContent = summary;
+
+        const readMoreLink = document.createElement('button');
+        readMoreLink.className = 'blog-read-more';
+        readMoreLink.textContent = 'Read More';
+        readMoreLink.onclick = () => showBlogDetails(image, title, author, timestamp, content);
+
+        blogCard.appendChild(blogTitle);
+        blogCard.appendChild(blogSummary);
+        blogCard.appendChild(readMoreLink);
+
+        slide.appendChild(blogCard);
+        swiperWrapper.appendChild(slide);
+      }
+    });
+
+    // Initialize Swiper
+    const swiper = new Swiper('.blog-slider', {
+      slidesPerView: 1,
+      spaceBetween: 30,
+      loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+    });
+  } catch (error) {
+    console.error('Error loading blog posts:', error);
+  }
 }
 
 // Function to show blog details in dialog
 function showBlogDetails(image, title, author, timestamp, content) {
-  document.getElementById('dialog-image').src = image;
+  document.getElementById('dialog-image').src = `assets/img/blog/${image}`;
   document.getElementById('dialog-title').textContent = title;
   document.getElementById('dialog-author').textContent = `Author: ${author}`;
   document.getElementById('dialog-timestamp').textContent = `Published on: ${timestamp}`;
@@ -476,12 +482,13 @@ function showBlogDetails(image, title, author, timestamp, content) {
 }
 
 // Function to close the dialog
-document.querySelector('.dialog-close').onclick = () => {
+function closeDialog() {
   document.getElementById('blog-details-dialog').style.display = 'none';
-};
+}
+
+document.querySelector('.dialog-close').addEventListener('click', closeDialog);
 
 // Load the blog posts when the document is ready
 document.addEventListener('DOMContentLoaded', () => {
   loadBlogPosts();
 });
-
