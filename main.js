@@ -225,9 +225,11 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch(`listImages.php?type=${type}`)
       .then(response => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error(`Network response was not ok: ${response.statusText}`);
         }
-        return response.json();
+        return response.json().catch(error => {
+          throw new Error('Invalid JSON response');
+        });
       })
       .then(images => {
         const container = document.getElementById(containerId);
@@ -251,6 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadImages('clients', 'client-logos');
   loadImages('partners', 'partner-logos');
 });
+
 
 
 /**

@@ -23,6 +23,10 @@ if (isset($_GET['type'])) {
   exit;
 }
 
+// Disable error reporting to prevent any warnings or errors from being outputted
+error_reporting(0);
+ini_set('display_errors', 0);
+
 $images = [];
 foreach (glob($imageDirectory . '*.{jpg,jpeg,png,gif,svg,webp,ico}', GLOB_BRACE) as $image) {
   $images[] = ['path' => $image, 'name' => basename($image)];
