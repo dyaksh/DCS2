@@ -1,35 +1,36 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = htmlspecialchars(trim($_POST['name']));
-    $email = htmlspecialchars(trim($_POST['email']));
-    $subject = htmlspecialchars(trim($_POST['subject']));
-    $message = htmlspecialchars(trim($_POST['message']));
+    // Get form data
+    $name = htmlspecialchars(trim($_POST["name"]));
+    $email = htmlspecialchars(trim($_POST["email"]));
+    $phone = htmlspecialchars(trim($_POST["phone"]));
+    $message = htmlspecialchars(trim($_POST["message"]));
 
-    // Your email address
-    $to = 'yakshdarji2@gmail.com';
-    
-    // Email subject and body
-    $email_subject = "Contact Form: $subject";
-    $email_body = "You have received a new message from your website contact form.\n\n".
-                  "Here are the details:\n".
-                  "Name: $name\n".
-                  "Email: $email\n".
-                  "Message:\n$message";
+    // Validate email address
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo '<script>alert("Invalid email address: ' . $email . '"); window.location = "index.html";</script>';
+        exit();
+    }
 
-    // Email headers
-    $headers = "From: noreply@yourdomain.com\n";
-    $headers .= "Reply-To: $email";
+    // Compose the email message
+    $subject = "Enquiry from Contact Form";
+    $messageBody = "Name: $name\n";
+    $messageBody .= "Email: $email\n";
+    $messageBody .= "Phone Number: $phone\n";
+    $messageBody .= "Message:\n$message";
 
-    // Send email
-    if (mail($to, $email_subject, $email_body, $headers)) {
-        http_response_code(200);
-        echo "OK";
+    // Replace with your own email address
+    $to = "info@juristechlegal.com";
+
+    // Send the email
+    $headers = "From: Dcyber TechLab <noreply@example.com>";
+
+    if (mail($to, $subject, $messageBody, $headers)) {
+        echo '<script>alert("Thank you for your submission!"); window.location = "index.html";</script>';
     } else {
-        http_response_code(500);
-        echo "Internal Server Error";
+        echo '<script>alert("Sorry, there was an error processing your request. Please try again later."); window.location = "index.html";</script>';
     }
 } else {
-    http_response_code(405);
-    echo "Method Not Allowed";
+    echo '<script>alert("Invalid request."); window.location = "index.html";</script>';
 }
 ?>
