@@ -509,7 +509,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-/* contact */
+/* contact 
 
 document.getElementById('contact-form').addEventListener('submit', function(event) {
   event.preventDefault();
@@ -548,3 +548,4 @@ function displayError(error) {
   document.querySelector('.error-message').innerHTML = error;
   document.querySelector('.error-message').classList.add('d-block');
 }
+*/
