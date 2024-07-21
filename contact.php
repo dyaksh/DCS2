@@ -1,37 +1,32 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Collect form data
-    $name = htmlspecialchars(trim($_POST["name"]));
-    $email = htmlspecialchars(trim($_POST["email"]));
-    $subject = htmlspecialchars(trim($_POST["subject"]));
-    $message = htmlspecialchars(trim($_POST["message"]));
+    // Sanitize and validate input
+    $name = filter_var(trim($_POST["name"]), FILTER_SANITIZE_STRING);
+    $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
+    $subject = filter_var(trim($_POST["subject"]), FILTER_SANITIZE_STRING);
+    $message = filter_var(trim($_POST["message"]), FILTER_SANITIZE_STRING);
 
-    // Email recipient
+    // Validate email
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo "Invalid email format";
+        exit;
+    }
+
+    // Set recipient email address
     $to = "yakshdarji2@gmail.com";
-    $headers = "From: " . $email . "\r\n" .
-               "Reply-To: " . $email . "\r\n" .
-               "Content-Type: text/html; charset=UTF-8\r\n";
+    $headers = "From: $email";
 
-    // Email subject
-    $email_subject = "Contact Form Submission: " . $subject;
-
-    // Email body
-    $email_body = "<html><body>";
-    $email_body .= "<h2>Contact Form Submission</h2>";
-    $email_body .= "<p><strong>Name:</strong> $name</p>";
-    $email_body .= "<p><strong>Email:</strong> $email</p>";
-    $email_body .= "<p><strong>Subject:</strong> $subject</p>";
-    $email_body .= "<p><strong>Message:</strong></p>";
-    $email_body .= "<p>$message</p>";
-    $email_body .= "</body></html>";
+    // Compose email content
+    $email_subject = "Contact Form Submission: $subject";
+    $email_body = "Name: $name\nEmail: $email\nSubject: $subject\nMessage:\n$message";
 
     // Send email
     if (mail($to, $email_subject, $email_body, $headers)) {
-        echo "<p>Thank you for contacting us! Your message has been sent.</p>";
+        echo "Message sent successfully";
     } else {
-        echo "<p>Sorry, something went wrong. Please try again later.</p>";
+        echo "Failed to send message";
     }
 } else {
-    echo "<p>Invalid request method.</p>";
+    echo "Invalid request method";
 }
 ?>
