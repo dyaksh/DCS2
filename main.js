@@ -220,40 +220,55 @@ document.addEventListener("DOMContentLoaded", function() {
 /**
  * Function for the logo load for client and partner section
 **/
-document.addEventListener('DOMContentLoaded', function() {
-  loadLogos('clients.txt', 'client-logos');
-  loadLogos('partners.txt', 'partner-logos');
+document.addEventListener('DOMContentLoaded', () => {
+  // Load and display client logos
+  fetch('clients.txt')
+    .then(response => response.text())
+    .then(data => {
+      const clients = data.trim().split('\n');
+      const clientContainer = document.getElementById('client-logos');
+      
+      clients.forEach(client => {
+        const [image, url] = client.split(',');
+        if (image && url) {
+          const imgElement = document.createElement('img');
+          imgElement.src = `assets/img/clients/${image.trim()}`;
+          imgElement.alt = image.trim();
+          
+          const anchorElement = document.createElement('a');
+          anchorElement.href = url.trim();
+          anchorElement.appendChild(imgElement);
+          
+          clientContainer.appendChild(anchorElement);
+        }
+      });
+    })
+    .catch(error => console.error('Error loading client logos:', error));
+  
+  // Load and display partner logos
+  fetch('/partners.txt')
+    .then(response => response.text())
+    .then(data => {
+      const partners = data.trim().split('\n');
+      const partnerContainer = document.getElementById('partner-logos');
+      
+      partners.forEach(partner => {
+        const [image, url] = partner.split(',');
+        if (image && url) {
+          const imgElement = document.createElement('img');
+          imgElement.src = `assets/img/partners/${image.trim()}`;
+          imgElement.alt = image.trim();
+          
+          const anchorElement = document.createElement('a');
+          anchorElement.href = url.trim();
+          anchorElement.appendChild(imgElement);
+          
+          partnerContainer.appendChild(anchorElement);
+        }
+      });
+    })
+    .catch(error => console.error('Error loading partner logos:', error));
 });
-
-function loadLogos(file, containerId) {
-  fetch(file)
-      .then(response => response.text())
-      .then(data => {
-          const lines = data.split('\n');
-          const container = document.getElementById(containerId);
-          lines.forEach(line => {
-              if (line.trim()) {
-                  const [img, url] = line.split(',').map(item => item.trim());
-                  const logoElement = createLogoElement(img, url);
-                  container.appendChild(logoElement);
-              }
-          });
-      })
-      .catch(error => console.error('Error loading logos:', error));
-}
-
-function createLogoElement(img, url) {
-  const anchor = document.createElement('a');
-  anchor.href = url;
-  anchor.target = '_blank';
-
-  const image = document.createElement('img');
-  image.src = `assets/img/${img}`;
-  image.alt = 'Client/Partner Logo';
-
-  anchor.appendChild(image);
-  return anchor;
-}
 
 /**
  * Marquee text

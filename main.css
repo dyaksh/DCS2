@@ -1402,6 +1402,7 @@ section,
 }
 
 /* Grid Styling for Clients and Partners */
+
 .client-grid, .partner-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
