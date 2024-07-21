@@ -502,3 +502,16 @@ document.querySelector('.dialog-close').addEventListener('click', closeDialog);
 document.addEventListener('DOMContentLoaded', () => {
   loadBlogPosts();
 });
+
+if (image && image.trim()) {
+  const imgWrapper = document.createElement('div');
+  imgWrapper.className = 'blog-image-wrapper'; // Add wrapper class
+
+  const img = document.createElement('img');
+  img.src = `assets/img/blog/${image}`;
+  img.alt = title;
+  img.className = 'blog-image';
+
+  imgWrapper.appendChild(img);
+  blogCard.appendChild(imgWrapper);
+}
