@@ -248,6 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
 /**
  * Marquee text
  */
