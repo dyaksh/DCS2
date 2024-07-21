@@ -541,26 +541,37 @@
       
 
   </main>
-  <!-- Blog Section -->
-<section id="blogs" class="blogs section">
+<!-- Blog Section -->
+<section id="blog" class="blog section">
   <!-- Section Title -->
   <div class="container section-title" data-aos="fade-up">
-    <h2>Our Blogs</h2>
-    <p>Explore the latest insights and updates from our team.</p>
+    <h2>Our Blog</h2>
+    <p>Stay updated with our latest insights and news</p>
   </div><!-- End Section Title -->
 
   <div class="container">
-    <div class="blog-slider swiper" data-aos="fade-up" data-aos-delay="100">
+    <div class="blog-slider swiper">
       <div class="swiper-wrapper" id="blog-posts">
         <!-- Blog posts will be dynamically inserted here -->
       </div>
-      <!-- Add Pagination -->
-  
-      
+      <div class="swiper-pagination"></div>
+      <!-- Optionally include navigation buttons if needed -->
     </div>
   </div>
 </section>
-<!-- End Blog Section -->
+<!-- /Blog Section -->
+
+<!-- Dialog Box -->
+<div id="blog-details-dialog">
+  <div class="dialog-content">
+    <span class="dialog-close">&times;</span>
+    <img id="dialog-image" src="" alt="Blog Image">
+    <h2 id="dialog-title"></h2>
+    <p id="dialog-author"></p>
+    <p id="dialog-timestamp"></p>
+    <div id="dialog-content"></div>
+  </div>
+</div>
 
 <!-- Blog Details Dialog -->
 <div id="blog-details-dialog" class="dialog-overlay">

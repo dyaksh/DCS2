@@ -418,11 +418,16 @@ async function loadBlogPosts() {
         blogCard.className = 'blog-card';
 
         if (image && image.trim()) {
+          const imgWrapper = document.createElement('div');
+          imgWrapper.className = 'blog-image-wrapper';
+
           const img = document.createElement('img');
           img.src = `assets/img/blog/${image}`;
           img.alt = title;
           img.className = 'blog-image';
-          blogCard.appendChild(img);
+
+          imgWrapper.appendChild(img);
+          blogCard.appendChild(imgWrapper);
         }
 
         const blogTitle = document.createElement('div');
@@ -433,14 +438,14 @@ async function loadBlogPosts() {
         blogSummary.className = 'blog-summary';
         blogSummary.textContent = summary;
 
-        const readMoreLink = document.createElement('button');
-        readMoreLink.className = 'blog-read-more';
-        readMoreLink.textContent = 'Read More';
-        readMoreLink.onclick = () => showBlogDetails(image, title, author, timestamp, content);
+        const readMoreButton = document.createElement('button');
+        readMoreButton.className = 'blog-read-more';
+        readMoreButton.textContent = 'Read More';
+        readMoreButton.onclick = () => showBlogDetails(image, title, author, timestamp, content);
 
         blogCard.appendChild(blogTitle);
         blogCard.appendChild(blogSummary);
-        blogCard.appendChild(readMoreLink);
+        blogCard.appendChild(readMoreButton);
 
         slide.appendChild(blogCard);
         swiperWrapper.appendChild(slide);
@@ -448,32 +453,31 @@ async function loadBlogPosts() {
     });
 
     // Initialize Swiper
-   // Initialize Swiper
-const swiper = new Swiper('.blog-slider', {
-  slidesPerView: 4, // Show 3 cards at once
-  spaceBetween: 15, // Space between cards
-  loop: true,
-  pagination: {
-    el: '.swiper-pagination',
-    clickable: true,
-  },
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
-  autoplay: {
-    delay: 5000,
-    disableOnInteraction: false,
-  },
-  breakpoints: {
-    768: {
-      slidesPerView: 2, // Show 2 cards at once for tablets
-    },
-    1024: {
-      slidesPerView: 3, // Show 3 cards at once for desktop
-    },
-  },
-});
+    const swiper = new Swiper('.blog-slider', {
+      slidesPerView: 1, // Default for small screens
+      spaceBetween: 15,
+      loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+      breakpoints: {
+        768: {
+          slidesPerView: 1, // Still 1 card per row for small screens
+        },
+        1024: {
+          slidesPerView: 3, // Show 3 cards per row for large screens
+        },
+      },
+    });
 
   } catch (error) {
     console.error('Error loading blog posts:', error);
@@ -502,16 +506,3 @@ document.querySelector('.dialog-close').addEventListener('click', closeDialog);
 document.addEventListener('DOMContentLoaded', () => {
   loadBlogPosts();
 });
-
-if (image && image.trim()) {
-  const imgWrapper = document.createElement('div');
-  imgWrapper.className = 'blog-image-wrapper'; // Add wrapper class
-
-  const img = document.createElement('img');
-  img.src = `assets/img/blog/${image}`;
-  img.alt = title;
-  img.className = 'blog-image';
-
-  imgWrapper.appendChild(img);
-  blogCard.appendChild(imgWrapper);
-}
