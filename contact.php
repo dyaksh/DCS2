@@ -1,32 +1,35 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Collect and sanitize form data
     $name = htmlspecialchars(trim($_POST['name']));
     $email = htmlspecialchars(trim($_POST['email']));
     $subject = htmlspecialchars(trim($_POST['subject']));
     $message = htmlspecialchars(trim($_POST['message']));
 
-    // Recipient email
+    // Your email address
     $to = 'yakshdarji2@gmail.com';
-    $subject = "Contact Form Submission: $subject";
-
-    // Email content
-    $email_content = "Name: $name\n";
-    $email_content .= "Email: $email\n";
-    $email_content .= "Subject: $subject\n";
-    $email_content .= "Message:\n$message\n";
+    
+    // Email subject and body
+    $email_subject = "Contact Form: $subject";
+    $email_body = "You have received a new message from your website contact form.\n\n".
+                  "Here are the details:\n".
+                  "Name: $name\n".
+                  "Email: $email\n".
+                  "Message:\n$message";
 
     // Email headers
-    $headers = "From: $email";
+    $headers = "From: noreply@yourdomain.com\n";
+    $headers .= "Reply-To: $email";
 
-    // Send the email
-    if (mail($to, $subject, $email_content, $headers)) {
-        echo 'OK';
+    // Send email
+    if (mail($to, $email_subject, $email_body, $headers)) {
+        http_response_code(200);
+        echo "OK";
     } else {
-        echo 'There was a problem sending the email.';
+        http_response_code(500);
+        echo "Internal Server Error";
     }
 } else {
-    // Not a POST request
-    echo 'Invalid request.';
+    http_response_code(405);
+    echo "Method Not Allowed";
 }
 ?>
