@@ -16,11 +16,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $subject = "Enquiry from Contact Form";
     $messageBody = "Name: $name\n";
     $messageBody .= "Email: $email\n";
-    $messageBody .= "Subject: $subject\n";
+    $messageBody .= "subject : $subject\n";
     $messageBody .= "Message:\n$message";
 
     // Replace with your own email address
-    $to = "info@dcyber.in";
+    $to = "contactus@dcyber.in";
 
     // Send the email
     $headers = "From: Dcyber TechLab <noreply@example.com>";
