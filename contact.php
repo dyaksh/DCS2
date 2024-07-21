@@ -1,32 +1,27 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Sanitize and validate input
-    $name = filter_var(trim($_POST["name"]), FILTER_SANITIZE_STRING);
-    $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
-    $subject = filter_var(trim($_POST["subject"]), FILTER_SANITIZE_STRING);
-    $message = filter_var(trim($_POST["message"]), FILTER_SANITIZE_STRING);
+    $name = htmlspecialchars($_POST['name']);
+    $email = htmlspecialchars($_POST['email']);
+    $subject = htmlspecialchars($_POST['subject']);
+    $message = htmlspecialchars($_POST['message']);
 
-    // Validate email
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo "Invalid email format";
-        exit;
-    }
+    $to = 'yakshdarji2@gmail.com';  // Your email address
+    $headers = "From: $email\r\n";
+    $headers .= "Reply-To: $email\r\n";
+    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 
-    // Set recipient email address
-    $to = "yakshdarji2@gmail.com";
-    $headers = "From: $email";
-
-    // Compose email content
     $email_subject = "Contact Form Submission: $subject";
-    $email_body = "Name: $name\nEmail: $email\nSubject: $subject\nMessage:\n$message";
+    $email_body = "Name: $name\n";
+    $email_body .= "Email: $email\n";
+    $email_body .= "Subject: $subject\n";
+    $email_body .= "Message:\n$message\n";
 
-    // Send email
     if (mail($to, $email_subject, $email_body, $headers)) {
-        echo "Message sent successfully";
+        echo 'OK';
     } else {
-        echo "Failed to send message";
+        echo 'Failed to send email';
     }
 } else {
-    echo "Invalid request method";
+    header("HTTP/1.1 405 Method Not Allowed");
 }
 ?>
