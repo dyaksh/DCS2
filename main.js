@@ -397,7 +397,7 @@ document.addEventListener("DOMContentLoaded", () => {
  */
 // Function to load blog posts from text file
 async function loadBlogPosts() {
-  const response = await fetch('path/to/blog.txt');
+  const response = await fetch('blog.txt');
   const data = await response.text();
   const lines = data.split('\n');
 
