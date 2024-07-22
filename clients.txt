@@ -3,7 +3,7 @@ ang.jpg,
 arambhanam.jpg,
 arcon.png,
 artizonieer.svg,
-aws.png,
+
 BigONE.png,
 Blackberry-Cylance.png,
 caspianEx.svg,
