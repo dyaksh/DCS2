@@ -396,6 +396,137 @@ document.addEventListener("DOMContentLoaded", () => {
  * blog
  */
 // Function to load blog posts from text file
+// Function to load blog posts from text file
+async function loadBlogPosts() {
+  try {
+    const response = await fetch('blog.txt');
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.text();
+    const lines = data.trim().split('\n');
+
+    const swiperWrapper = document.querySelector('#blog-posts');
+
+    lines.forEach(line => {
+      const [image, title, url] = line.split('|');
+
+      if (title && url) {
+        const slide = document.createElement('div');
+        slide.className = 'swiper-slide';
+
+        const blogCard = document.createElement('div');
+        blogCard.className = 'blog-card';
+
+        if (image && image.trim()) {
+          const imgWrapper = document.createElement('div');
+          imgWrapper.className = 'blog-image-wrapper';
+
+          const img = document.createElement('img');
+          img.src = `assets/img/blog/${image}`;
+          img.alt = title;
+          img.className = 'blog-image';
+
+          imgWrapper.appendChild(img);
+          blogCard.appendChild(imgWrapper);
+        }
+
+        const blogTitle = document.createElement('div');
+        blogTitle.className = 'blog-title';
+        blogTitle.textContent = title;
+
+        const readMoreButton = document.createElement('a');
+        readMoreButton.className = 'blog-read-more';
+        readMoreButton.textContent = 'Read Blog';
+        readMoreButton.href = url;
+        readMoreButton.target = '_blank'; // Open in a new tab
+
+        blogCard.appendChild(blogTitle);
+        blogCard.appendChild(readMoreButton);
+
+        slide.appendChild(blogCard);
+        swiperWrapper.appendChild(slide);
+      }
+    });
+
+    // Initialize Swiper
+    const swiper = new Swiper('.blog-slider', {
+      slidesPerView: 1, // Default for small screens
+      spaceBetween: 15,
+      loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+      breakpoints: {
+        768: {
+          slidesPerView: 1, // Still 1 card per row for small screens
+        },
+        1024: {
+          slidesPerView: 3, // Show 3 cards per row for large screens
+        },
+      },
+    });
+
+  } catch (error) {
+    console.error('Error loading blog posts:', error);
+  }
+}
+
+// Load the blog posts when the document is ready
+document.addEventListener('DOMContentLoad
+
+
+/* contact 
+
+document.getElementById('contact-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  let formData = new FormData(this);
+  let action = this.getAttribute('action');
+
+  fetch(action, {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => {
+    if (response.ok) {
+      return response.text();
+    } else {
+      throw new Error(`${response.status} ${response.statusText}`);
+    }
+  })
+  .then(data => {
+    if (data.trim() === 'OK') {
+      document.querySelector('.sent-message').classList.add('d-block');
+      document.querySelector('.loading').classList.remove('d-block');
+      document.querySelector('.error-message').classList.remove('d-block');
+      document.getElementById('contact-form').reset();
+    } else {
+      throw new Error(data);
+    }
+  })
+  .catch((error) => {
+    displayError(error);
+  });
+});
+
+function displayError(error) {
+  document.querySelector('.loading').classList.remove('d-block');
+  document.querySelector('.error-message').innerHTML = error;
+  document.querySelector('.error-message').classList.add('d-block');
+}
+
+old blog section
+
 async function loadBlogPosts() {
   try {
     const response = await fetch('blog.txt');
@@ -507,45 +638,4 @@ document.addEventListener('DOMContentLoaded', () => {
   loadBlogPosts();
 });
 
-
-
-/* contact 
-
-document.getElementById('contact-form').addEventListener('submit', function(event) {
-  event.preventDefault();
-
-  let formData = new FormData(this);
-  let action = this.getAttribute('action');
-
-  fetch(action, {
-    method: 'POST',
-    body: formData
-  })
-  .then(response => {
-    if (response.ok) {
-      return response.text();
-    } else {
-      throw new Error(`${response.status} ${response.statusText}`);
-    }
-  })
-  .then(data => {
-    if (data.trim() === 'OK') {
-      document.querySelector('.sent-message').classList.add('d-block');
-      document.querySelector('.loading').classList.remove('d-block');
-      document.querySelector('.error-message').classList.remove('d-block');
-      document.getElementById('contact-form').reset();
-    } else {
-      throw new Error(data);
-    }
-  })
-  .catch((error) => {
-    displayError(error);
-  });
-});
-
-function displayError(error) {
-  document.querySelector('.loading').classList.remove('d-block');
-  document.querySelector('.error-message').innerHTML = error;
-  document.querySelector('.error-message').classList.add('d-block');
-}
 */
