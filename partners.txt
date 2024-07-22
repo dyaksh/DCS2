@@ -9,6 +9,6 @@ MSP360.png,
 octopus.png,
 Platform9.png,
 silver-peak-logo.svg,
-varonis.png,
-zscaler.svg,
-logsign.png,
+varonis.png,https://www.varonis.com/
+zscaler.svg,https://www.zscaler.com/
+logsign.png,https://www.logsign.com/
