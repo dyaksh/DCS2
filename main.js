@@ -482,7 +482,9 @@ async function loadBlogPosts() {
 }
 
 // Load the blog posts when the document is ready
-document.addEventListener('DOMContentLoad
+document.addEventListener('DOMContentLoaded', () => {
+  loadBlogPosts();
+});
 
 
 /* contact 
